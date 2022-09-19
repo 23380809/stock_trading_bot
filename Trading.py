@@ -200,17 +200,16 @@ def check_opportunity(data, name, sell, buy):
                 else:
                     count +=1
                 trends.append('UPTREND')
-
+                print('uptrend')
             elif mva/previous_value < 1:
-
+                print('downtrend')
                 trends.append('DOWNRTREND')
                 if count > 0:
                     count = -1
                 else:
                     count -= 1
-
             else:
-
+                print('notrend')
                 trends.append('NOTREND')
             previous_value = mva
 
@@ -244,7 +243,6 @@ def try_sell(data, name, crpyto_data):
         sell_crypto(crpyto_data, name)
     
 def get_pairs():
-
     return ['XETHZUSD', 'XXBTZUSD', 'MANAUSD', 'GRTUSD', 'SCUSD']
 
 if __name__ == '__main__':
