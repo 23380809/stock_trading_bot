@@ -150,7 +150,6 @@ def bot(since, k, pairs):
                     check_data(pair, crpyto_data, False)
 
             else:
-
                 crypto_data = get_crypto_data(pair, since)
                 check_data(pair, crypto_data, True)
 
@@ -217,6 +216,7 @@ def check_opportunity(data, name, sell, buy):
     for mva in reversed(data['close'][-5:]):
         area = 0
         price = float(data['prices'][-1][3])
+        print(mva)
         if sell:
             purchase_price = float(get_purchasing_price(name))
             if price >= (purchase_price * 1.02):
@@ -228,6 +228,7 @@ def check_opportunity(data, name, sell, buy):
         areas.append(mva / price)
     if buy:
         counter = 0
+        print(count)
         if count >= 5:
             for area in areas:
                 counter += area
