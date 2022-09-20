@@ -162,6 +162,8 @@ def check_data(name, crypto_data, should_buy):
     close = 0
 
     for b in crypto_data[-100:]:
+        # write the last 100 records if that's not in data.json
+
         if b not in mva[name]['prices']:
             mva[name]['prices'].append(b)
 
@@ -180,6 +182,7 @@ def check_data(name, crypto_data, should_buy):
         try_sell(mva[name], name, crypto_data)
 
 def try_buy(data, name, crpyto_data):
+    # data = mva[name]
     make_trade = check_opportunity(data, name, False, True)
     if make_trade:
         print('buy')
@@ -189,6 +192,7 @@ def check_opportunity(data, name, sell, buy):
     count = 0
     previous_value = 0
     trends = []
+    # check last 10 record uptrend or downtrend
     for mva in data['close'][-10:]:
         if previous_value == 0:
             previous_value = mva
@@ -213,10 +217,11 @@ def check_opportunity(data, name, sell, buy):
             previous_value = mva
 
     areas = []
+
     for mva in reversed(data['close'][-5:]):
         area = 0
+        # price = last price    3 - middle value
         price = float(data['prices'][-1][3])
-        print(mva)
         if sell:
             purchase_price = float(get_purchasing_price(name))
             if price >= (purchase_price * 1.02):
@@ -252,4 +257,6 @@ if __name__ == '__main__':
     pairs = get_pairs()
     since = str(int(time.time() - 43200))
     mva = load_crypto_data_from_file()
+    print(mva)
+    print(since)
     bot(since, k, pairs)
