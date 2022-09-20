@@ -145,8 +145,8 @@ def bot(since, k, pairs):
 
                 if trades[pair][-1]['sold'] or trades[pair][-1] == None:
                     check_data(pair, crpyto_data, True)
-                if trades[pair][-1]['bought']:
 
+                if trades[pair][-1]['bought']:
                     check_data(pair, crpyto_data, False)
 
             else:
@@ -187,6 +187,8 @@ def try_buy(data, name, crpyto_data):
     if make_trade:
         print('buy')
         buy_crypto(crpyto_data, name)
+
+# low high close open are averages
 
 def check_opportunity(data, name, sell, buy):
     count = 0
@@ -231,6 +233,7 @@ def check_opportunity(data, name, sell, buy):
                 print('Selling at a loss')
                 return True
         areas.append(mva / price)
+    print(areas)
     if buy:
         counter = 0
         print(count)
@@ -257,6 +260,4 @@ if __name__ == '__main__':
     pairs = get_pairs()
     since = str(int(time.time() - 43200))
     mva = load_crypto_data_from_file()
-    print(mva)
-    print(since)
     bot(since, k, pairs)
